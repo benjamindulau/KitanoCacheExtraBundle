@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="ano_kitano_cache_extra.listener.cache.class">Ano\Bundle\KitanoCacheExtraBundle\EventListener\CacheEventListener</parameter>
+    </parameters>
+
+    <services>
+        <service id="ano_kitano_cache_extra.listener.cache" class="%ano_kitano_cache_extra.listener.cache.class%">
+            <tag name="kernel.event_listener" event="kitano_cache.after_cache_hit" method="onAfterCacheHit" />
+            <tag name="kernel.event_listener" event="kitano_cache.after_cache_update" method="onAfterCacheUpdate" />
+            <argument type="service" id="jms_serializer.serializer" />
+            <argument type="service" id="kitano_cache.simple_cache_manager" />
+        </service>
+    </services>
+
+</container>
